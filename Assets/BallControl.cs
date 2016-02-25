@@ -3,24 +3,30 @@ using System.Collections;
 
 public class BallControl : MonoBehaviour {
 
-
+	public float ballSpeed = 100; 
 	public Rigidbody2D rigidbody;
 		
 	// Use this for initialization
 	void Start () {
+		Invoke ("GoBall", 2.0f);
+	}
+
+	void GoBall(){
 		int randomNumber = Random.Range (0, 2);
 		rigidbody = GetComponent<Rigidbody2D> ();
 		if (randomNumber < 1) {
-			// Debug.Log("Shoot right!");
-			// Debug.Log(randomNumber.ToString());
-			rigidbody.AddForce(new Vector2(80, 10));
+			rigidbody.AddForce(new Vector2(ballSpeed, -10));
 		}
 		else {
-			// Debug.Log("Shoot left!");
-			// Debug.Log(randomNumber.ToString());
-			rigidbody.AddForce(new Vector2(-80, -10));
+			rigidbody.AddForce(new Vector2(-ballSpeed, -10));
 		}
+	}
 
+	public void ResetBall(){
+		GetComponent<Rigidbody2D> ().velocity = new Vector2 (0f, 0f);
+		transform.position = new Vector2 (0f, 2f);
+
+		Invoke ("GoBall", 1f);
 	}
 	
 	// Update is called once per frame
