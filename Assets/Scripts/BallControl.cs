@@ -3,11 +3,11 @@ using System.Collections;
 
 public class BallControl : MonoBehaviour {
 
-	public float ballSpeed = 100; 
-	public Rigidbody2D rigidbody;
-		
-	// Use this for initialization
-	void Start () {
+	public float ballSpeed = 100;
+    Rigidbody2D rigidbody;
+
+    // Use this for initialization
+    void Start () {
 		Invoke ("GoBall", 2.0f);
 	}
 
@@ -30,8 +30,20 @@ public class BallControl : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		// GetComponent<Rigidbody2D>().
+	void Update ()
+	{
+	    Vector2 Vel = GetComponent<Rigidbody2D>().velocity;
+	    if (Vel.x < 18 && Vel.x > 18 && Vel.x != 0)
+	    {
+	        if (Vel.x > 0)
+	        {
+	            GetComponent<Rigidbody2D>().velocity = new Vector2(20, Vel.y);
+	        }
+	        else
+	        {
+	            GetComponent<Rigidbody2D>().velocity = new Vector2(-20, Vel.y);
+	        }
+	    }
 	}
 
 	void OnCollisionEnter2D (Collision2D collider){
@@ -39,8 +51,9 @@ public class BallControl : MonoBehaviour {
 			// Debug.Log("Its working!!!!");
 			Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
 			rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y/2 + collider.collider.attachedRigidbody.velocity.y/3);
-		}
+		    GetComponent<AudioSource>().pitch = Random.Range(0.8f, 1f);
+            GetComponent<AudioSource>().Play();
+        }
 
-	
 	}
 }
