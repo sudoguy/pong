@@ -8,9 +8,9 @@ public class SideWalls : MonoBehaviour {
 		if (hitInfo.name == "Ball") {
 		    if (transform.name == "rightWall")
 		    {
-		        GetComponent<AudioSource>().panStereo = 0.75f;
+		        GetComponent<AudioSource>().panStereo = 0.85f;
 		    } else
-                GetComponent<AudioSource>().panStereo = -0.75f;
+                GetComponent<AudioSource>().panStereo = -0.85f;
             GetComponent<AudioSource>().Play();
 			GameManager.Score (transform.name);
 			hitInfo.gameObject.SendMessage("ResetBall");
